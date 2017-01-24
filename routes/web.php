@@ -18,3 +18,5 @@
 Route::get('/', 'ProductController@index');
 Route::post('/save_product', 'ProductController@saveProduct');
 Route::get('/products', 'ProductController@getProducts');
+
+Route::resource('/icusers', 'ICUserController');

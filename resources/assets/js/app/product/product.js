@@ -7,7 +7,7 @@ Product.init = function(){
 
 Product.get_Products = function(){
 	var self = this;
-	this.$http.get('/products', ).then((resp)=>{
+	this.$http.get('/products').then((resp)=>{
 		if(resp.data){
 			self.products = resp.data;	
 		}
@@ -46,8 +46,8 @@ new J.Vue({
 			quantity:null
 		}
 	},
-	ready: function() {
-		this.init();
+	mounted: function() {
+		// this.init();
 	},
 	methods: Product
 });

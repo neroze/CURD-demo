@@ -6,7 +6,14 @@ $.ajaxSetup({
         });
 
 var _location = location.href;
-require('./app/product/product.js');
+if(_location.search('icuser') > 0){
+	require('./app/icuser/icuser.js');
+}
+else{
+	require('./app/product/product.js');
+}
+
+
 
 
 

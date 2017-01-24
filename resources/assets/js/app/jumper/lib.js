@@ -1,23 +1,15 @@
-var Vue = require('Vue');
-var J = require('../jumper/lib.js');
-var vueResource = require('vue-resource');
+import Vue from 'vue'
+import vueResource from 'vue-resource'
+import VeeValidate from 'vee-validate';
 Vue.use(vueResource);
+Vue.use(VeeValidate);
 var _ = require('lodash');
 
-var randomcolor = require('randomcolor');
 var Jumper = {};
 Jumper.log = function(_msg ){
 	console.log(_msg);
 }
-Jumper.random_color = function(_luminosity, _hue) {
-	var luminosity 	= luminosity || "dark";
-	var hue 				= _hue || "blue";
-  
-	return randomcolor({
-									   luminosity: luminosity,
-   										hue: hue
-										});
-}
+
 
 Jumper.random_color_dump = function(){
 	return ('#'+Math.floor(Math.random()*16777215).toString(16));
