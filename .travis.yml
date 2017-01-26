@@ -7,5 +7,4 @@ before_script:
   - ./vendor/bin/phpunit
   - composer install 
 install:
-  - php vendor/vendors.php
   - composer install 
