@@ -4,27 +4,39 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Validator;
+use App\Helpers\JResponse;
+use App\Helpers\Jlog;
 
 class ICUser extends Model
 {
-	/**
-	 * Basic Validation for IC User Schema
-	 *
-	 * @return Boolen
-	 * @author jumper
-	 **/
-	public function validate(array $data, $rules)
+  /**
+   * undocumented class variable
+   *
+   * @var string
+   **/
+  public $log;
+  public function __construct(Jlog $log)
   {
-	     return Validator::make($data, $rules);
+    $this->log = $log;
   }
-	/**
-	 * Validation Rules for creating new IC user
-	 *
-	 * @return Array 
-	 * @author Jumper
-	 **/
+  /**
+   * Basic Validation for IC User Schema
+   *
+   * @return Boolen
+   * @author jumper
+   **/
+  public function validate(array $data, $rules)
+  {
+       return Validator::make($data, $rules);
+  }
+  /**
+   * Validation Rules for creating new IC user
+   *
+   * @return Array 
+   * @author Jumper
+   **/
 
-	public function rules()
+  public function rules()
   {
       return [
           'name' => 'required',
@@ -47,19 +59,20 @@ class ICUser extends Model
    **/
   public function saveICUser($data='', $store = [],$icuUserExport)
   {
-  	$valdiate = $this->validate($data, $this->rules());
-  	if($valdiate->fails()){
-    	return ['stat'=>'error','message' => $valdiate->errors()->all() ];
+    $valdiate = $this->validate($data, $this->rules());
+    if($valdiate->fails()){
+      return JResponse::error($valdiate->errors()->all());
     }
 
-  	if($data){
-			array_push($store, $data);
-			$icuUserExport->sheet('userList', function($sheet) use($store) {
-	        $sheet->fromArray($store);
-	    })->store('csv');
-
-	    return ['stat'=>'ok','data' => $data ];
-  	}
+    if($data){
+      array_push($store, $data);
+      $icuUserExport->sheet('userList', function($sheet) use($store) {
+          $sheet->fromArray($store);
+      })->store('csv');
+      //push logentires
+      $this->log->info("User ".$data['name']." ( ".$data['email']." ) Created Successfully!");
+      return JResponse::data($data);
+    }
   }
 
   /**
@@ -70,14 +83,14 @@ class ICUser extends Model
    * @param   $store App\Repo\ICUserList;
    * @author 
    **/
-  public function deleteICUser($store = [], $icuUserExport)
+  public function deleteICUser($store = [], $icuUserExport,$removed_user)
   {
-  		$icuUserExport->sheet('userList', function($sheet) use($store) {
-	        $sheet->fromArray($store);
-	    })->store('csv');
-
-	    return ['stat'=>'ok'];
-  	
+      $icuUserExport->sheet('userList', function($sheet) use($store) {
+          $sheet->fromArray($store);
+      })->store('csv');
+       //push logentires
+      $this->log->info("User ".$removed_user." Removed Successfully!");
+      return JResponse::data();
   }
     
 }
