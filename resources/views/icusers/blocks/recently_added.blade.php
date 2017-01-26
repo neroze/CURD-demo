@@ -13,14 +13,15 @@
 			</tr>
 			</thead>
 			<tbody>
-				<tr class="even pointer"  >
-					<td> </td>
-					<td></td>
-					<td> </td>
-					<td> </td>
+				<tr class="even pointer" v-for="user in recently_added_users"  >
+					<td>@{{ user.name }}</td>
+					<td>@{{ user.email }} </td>
+					<td>@{{ user.phone }} </td>
+					<td>@{{ user.address }}</td>
 					
 				</tr>
 				
 			</tbody>
 		</table>
+		
 	</div>

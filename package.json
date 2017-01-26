@@ -16,6 +16,9 @@
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
-    "vee-validate": "^2.0.0-beta.17"
+    "scss-loader": "0.0.1",
+    "toastr": "^2.1.2",
+    "vee-validate": "^2.0.0-beta.17",
+    "vue-datatable": "^1.0.4"
   }
 }

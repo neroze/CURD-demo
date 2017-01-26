@@ -1,5 +1,6 @@
 <h2>Manage IC Users</h2>
 <form @submit.prevent="validateBeforeSubmit" v-if="!formSubmitted">
+
 	<div class="form-group" :class="{'has-error': errors.has('name') }" >
 		<label for="name">Name</label>
 		<input type="text"
@@ -8,33 +9,38 @@
 		placeholder="Name" id="name" name="name" v-model="user.name" >
 		<span v-show="errors.has('name')" class="text-danger help is-danger">@{{ errors.first('name') }}</span>
 	</div>
+
 	<div class="form-group" >
 		<label for="exampleInputPassword1">Gender</label>
-		<label class="radio-inline">
-			<input type="radio" checked="checked" id="male" name="gender" value="1"> Male
+		<label class="radio-inline"> 
+			<input type="radio" id="male" name="gender" value="male" v-model="user.gender"> Male
 		</label>
 		<label class="radio-inline">
-			<input type="radio" id="female" name="gender" value="2"> Female
+			<input type="radio" id="female" name="gender" value="female" v-model="user.gender"> Female
 		</label>
 	</div>
+
 	<div class="form-group" :class="{'has-error': errors.has('phone') }" >
 		<label for="exampleInputFile">Phone</label>
 		<input type="text"
-		v-validate data-vv-rules="required" :class="{'input': true, 'is-danger': errors.has('phone') }"
+		v-validate data-vv-rules="required|numeric" :class="{'input': true, 'is-danger': errors.has('phone') }"
 		class="form-control" placeholder="Phone" id="phone" name="phone" v-model="user.phone" >
 		<span v-show="errors.has('phone')" class="text-danger help is-danger">@{{ errors.first('phone') }}</span>
 	</div>
+
 	<div class="form-group" :class="{'has-error': errors.has('email') }">
 		<label for="exampleInputFile">Email</label>
 		<input type="text"
-		v-validate data-vv-rules="required" :class="{'input': true, 'is-danger': errors.has('email') }"
+		v-validate data-vv-rules="required|email" :class="{'input': true, 'is-danger': errors.has('email') }"
 		class="form-control" id="email" placeholder="Email" name="email" v-model="user.email" >
 		<span v-show="errors.has('email')" class="text-danger help is-danger">@{{ errors.first('email') }}</span>
 	</div>
-	<div class="form-group" :class="{'has-error': errors.has('email') }">
+
+	<div class="form-group">
 		<label for="exampleInputFile">DOB</label>
 		<date-picker name="user_date_of_birth" v-on:date_picked="dob_changed" ></date-picker>
 	</div>
+
 	<div class="form-group" :class="{'has-error': errors.has('address') }">
 		<label for="exampleInputFile">Address</label>
 		<input
@@ -42,6 +48,7 @@
 		type="text" class="form-control" id="address" placeholder="Address" name="address" v-model="user.address" >
 		<span v-show="errors.has('address')" class="text-danger help is-danger">@{{ errors.first('address') }}</span>
 	</div>
+
 	<div class="form-group" :class="{'has-error': errors.has('nationality') }">
 		<label for="exampleInputFile">Nationality</label>
 		<input
@@ -49,6 +56,7 @@
 		type="text" class="form-control" id="nationality" placeholder="Nationality" name="nationality" v-model="user.nationality" >
 		<span v-show="errors.has('nationality')" class="text-danger help is-danger">@{{ errors.first('nationality') }}</span>
 	</div>
+
 	<div class="form-group" :class="{'has-error': errors.has('education_background') }">
 		<label for="exampleInputFile">Education Background</label>
 		<input
@@ -59,7 +67,7 @@
 	
 	<div class="form-group">
 		<label for="exampleInputFile">Mode of Contact </label>
-		<select class="form-control">
+		<select class="form-control"  v-model="user.mode_of_contact">
 			<option value="email">Email</option>
 			<option value="phone">Phone</option>
 			<option value="none">None</option>
