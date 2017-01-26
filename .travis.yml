@@ -3,4 +3,5 @@ php:
   - '5.6'
   - '7.1'
 install:
-   - composer install 
+  - php vendor/vendors.php
+  - composer install 
