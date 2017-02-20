@@ -1,6 +1,6 @@
 # To Install app
 
-git clone git@github.com:neroze/skilltest.git 
+git clone git@github.com:neroze/CURD-demo.git
 
 1. composer install
 2. set write permisson for folders "storage" and "vendor"
